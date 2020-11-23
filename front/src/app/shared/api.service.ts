@@ -8,6 +8,8 @@ import {
   StudentsConsultation
 } from "../teachers-panel/components/incoming-consultations/incoming-consultations.component";
 import {ConsultationScheme} from "../teachers-panel/components/consultations-schedule/consultations-schedule.component";
+import {Group} from "../models/Group";
+import {Student} from "../models/Student";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,8 @@ export class ApiService {
   private CONSULTATIONS_URL = this.BASE_URL + '/consultations';
   private STUDENTS_CONSULTATIONS_URL = this.BASE_URL + '/consultationStudents';
   private TEACHER_SUBJECTS_URL = this.BASE_URL + '/teacherSubjects';
+  private GROUPS_URL = this.BASE_URL + '/groups';
+  private STUDENTS_URL = this.BASE_URL + '/students';
 
   constructor(private http: HttpClient) {
   }
@@ -28,8 +32,36 @@ export class ApiService {
     return this.http.post<any>(this.TEACHERS_URL, teacher);
   }
 
+  createGroup(group: Group): Observable<any> {
+    return this.http.post<any>(this.GROUPS_URL, group);
+  }
+
+  deleteGroup(id: number): Observable<any> {
+    return this.http.delete(this.GROUPS_URL + '/' + id);
+  }
+
+  updateStudent(student: Student): Observable<any> {
+    return this.http.put(this.STUDENTS_URL + '/' + student.id, student);
+  }
+
+  createStudent(student: Student): Observable<any> {
+    return this.http.post<any>(this.STUDENTS_URL, student);
+  }
+
+  deleteStudent(id: number): Observable<any> {
+    return this.http.delete(this.STUDENTS_URL + '/' + id);
+  }
+
   getAllTeachers(): Observable<Teacher[]> {
     return this.http.get<Teacher[]>(this.TEACHERS_URL);
+  }
+
+  getAllGroups(): Observable<Group[]> {
+    return this.http.get<Group[]>(this.GROUPS_URL);
+  }
+
+  getAllStudents(): Observable<Student[]> {
+    return this.http.get<Student[]>(this.STUDENTS_URL);
   }
 
   updateTeacher(teacher: Teacher): Observable<any> {
@@ -45,27 +77,27 @@ export class ApiService {
   }
 
   deleteTeacherSubject(id: string): Observable<any> {
-    return this.http.delete(this.TEACHER_SUBJECTS_URL + '/' + id)
+    return this.http.delete(this.TEACHER_SUBJECTS_URL + '/' + id);
   }
 
-  getConsultationSchemesByTeacherId(teacher_id: string): Observable<ConsultationScheme[]> {
-    return this.http.post<ConsultationScheme[]>(this.CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacher_id})
+  getConsultationSchemesByTeacherId(teacherId: string): Observable<ConsultationScheme[]> {
+    return this.http.post<ConsultationScheme[]>(this.CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacherId});
   }
 
   createConsultationScheme(scheme: ConsultationScheme): Observable<any> {
-    return this.http.post(this.CONSULTATIONS_URL, scheme)
+    return this.http.post(this.CONSULTATIONS_URL, scheme);
   }
 
   updateConsultationScheme(scheme: ConsultationScheme): Observable<any> {
-    return this.http.put(this.CONSULTATIONS_URL + '/' + scheme.id, scheme)
+    return this.http.put(this.CONSULTATIONS_URL + '/' + scheme.id, scheme);
   }
 
   deleteConsultationScheme(id: number): Observable<any> {
-    return this.http.delete(this.CONSULTATIONS_URL + '/' + id)
+    return this.http.delete(this.CONSULTATIONS_URL + '/' + id);
   }
 
-  getStudentsConsultationsByTeacherId(teacher_id: string): Observable<StudentsConsultation[]> {
-    return this.http.post<StudentsConsultation[]>(this.STUDENTS_CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacher_id})
+  getStudentsConsultationsByTeacherId(teacherId: string): Observable<StudentsConsultation[]> {
+    return this.http.post<StudentsConsultation[]>(this.STUDENTS_CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacherId});
   }
 
   createStudentConsultation(studentsConsultation: StudentsConsultation): Observable<any> {
@@ -81,19 +113,19 @@ export class ApiService {
   }
 
   getCurrentUserConsultationSchemes(): Observable<ConsultationScheme[]> {
-    return this.http.get<ConsultationScheme[]>(this.TEACHERS_URL + '/consultationsSchedule')
+    return this.http.get<ConsultationScheme[]>(this.TEACHERS_URL + '/consultationsSchedule');
   }
 
   getCurrentUserStudentsConsultations(model: DateRange): Observable<any> {
-    return this.http.post<any>(this.TEACHERS_URL + '/' + 'studentConsultations', model)
+    return this.http.post<any>(this.TEACHERS_URL + '/' + 'studentConsultations', model);
   }
 
   changePassword(passwordChangeModel: PasswordChangeModel): Observable<any> {
-    return this.http.post<any>(this.TEACHERS_URL + '/changePassword', passwordChangeModel)
+    return this.http.post<any>(this.TEACHERS_URL + '/changePassword', passwordChangeModel);
   }
 
   deleteAccount(): Observable<any> {
-    return this.http.delete<any>(this.TEACHERS_URL + '/removeAccount')
+    return this.http.delete<any>(this.TEACHERS_URL + '/removeAccount');
   }
 
   getCurrentUserSubjects(): Observable<Subject[]> {

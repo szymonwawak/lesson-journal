@@ -12,7 +12,7 @@ import {UtilsService} from "../../../shared/utils.service";
 })
 export class EmployeesComponent implements OnInit {
 
-  teachers: Teacher[];
+  teachers: Teacher[] = [];
   teacher: Teacher;
   paginatedTeachers: Teacher[];
   pageSize: number = 10;
@@ -24,6 +24,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.teachers = [];
     this.teacher = new Teacher();
     this.getTeachers();
     this.createUserForm = this.formBuilder.group({

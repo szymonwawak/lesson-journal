@@ -25,7 +25,7 @@ class TeacherController extends Controller
     public function getSingle(Request $request, Response $response, $args)
     {
         $teacher = Teacher::find($args['id']);
-        if ($teacher)
+        if (!$teacher)
             return $response->withStatus(404)->withJson(['error' => true, 'message' => 'Brak rekordu o podanym id']);
         return $response->withStatus(201)->withJson($teacher);
     }

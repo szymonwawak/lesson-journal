@@ -23,6 +23,8 @@ import {AuthGuardService} from "./shared/auth-guard.service";
 import {AuthService} from "./auth/auth.service";
 import {JwtModule} from "@auth0/angular-jwt";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {ActivitiesComponent} from "./teachers-panel/components/activities/activities.component";
+import {StudentsComponent} from "./teachers-panel/components/students-component/students.component";
 
 const appRoutes: Routes = [
   {path: 'planner', component: PlannerViewComponent},
@@ -31,11 +33,13 @@ const appRoutes: Routes = [
       {path: "", redirectTo: "dashboard", pathMatch: "full"},
       {path: "dashboard", component: DashboardComponent},
       {path: "employees", component: EmployeesComponent},
+      {path: "activities", component: ActivitiesComponent},
+      {path: "students", component: StudentsComponent},
       {path: "settings", component: SettingsComponent},
     ]
   },
   {path: '', component: RoleSelectorComponent, pathMatch: 'full'}
-]
+];
 
 @NgModule({
   declarations: [

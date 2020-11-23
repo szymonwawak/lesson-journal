@@ -24,6 +24,30 @@ $app->group('/api', function () use ($app) {
         $app->put('/{id}', "SubjectController:update");
     });
 
+    $app->group('/activities', function () use ($app) {
+        $app->get('/userActivities', 'ActivityController:getUserSubjects');
+        $app->get('/{id}', "ActivityController:getSingle");
+        $app->post('', "ActivityController:create");
+        $app->delete('/{id}', "ActivityController:delete");
+        $app->put('/{id}', "ActivityController:update");
+    });
+
+    $app->group('/groups', function () use ($app) {
+        $app->get('', "GroupController:getAll");
+        $app->get('/{id}', "GroupController:getSingle");
+        $app->post('', "GroupController:create");
+        $app->delete('/{id}', "GroupController:delete");
+        $app->put('/{id}', "GroupController:update");
+    });
+
+    $app->group('/students', function () use ($app) {
+        $app->get('', "StudentController:getAll");
+        $app->get('/{id}', "StudentController:getSingle");
+        $app->post('', "StudentController:create");
+        $app->delete('/{id}', "StudentController:delete");
+        $app->put('/{id}', "StudentController:update");
+    });
+
     $app->group('/teacherSubjects', function () use ($app) {
         $app->get('/{id}', "TeacherSubjectController:getSingle");
         $app->post('', "TeacherSubjectController:create");
@@ -47,6 +71,7 @@ $app->group('/api', function () use ($app) {
         $app->delete('/{id}', "StudentConsultationController:delete");
         $app->put('/{id}', "StudentConsultationController:update");
     });
+
 })->add(new Tuupola\Middleware\JwtAuthentication([
     "path" => "",
     "attribute" => "decoded_token_data",

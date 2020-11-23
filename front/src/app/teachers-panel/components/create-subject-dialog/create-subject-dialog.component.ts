@@ -28,7 +28,7 @@ export class CreateSubjectDialogComponent implements OnInit {
       err => {
         this.utils.openSnackBar(err.error.message);
       }
-    )
+    );
   }
 
   close() {

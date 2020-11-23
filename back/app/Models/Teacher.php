@@ -30,4 +30,9 @@ class Teacher extends Model
     {
         return $this->hasMany("App\Models\Consultations");
     }
+
+    public function activities()
+    {
+        return $this->hasMany("App\Models\Activity");
+    }
 }

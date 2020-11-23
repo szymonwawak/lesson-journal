@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Przypisz ucznia</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Wybierz ucznia:</mat-label>
+    <mat-select [(ngModel)]="student">
+      <mat-option *ngFor="let student of students" [value]="student">{{student.name}} {{student.surname}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!student" (click)="save()">
+    <mat-icon fontSet="material-icons-outlined ">done</mat-icon>
+    Przypisz ucznia do klasy
+  </button>
+  <button mat-raised-button color="warn" [disabled]="!student" (click)="deleteStudent()">
+    <mat-icon fontSet="material-icons-outlined ">delete</mat-icon>
+    Całkowicie usuń ucznia
+  </button>
+  <button mat-raised-button color="accent" (click)="close()">
+    <mat-icon fontSet="material-icons-outlined">cancel</mat-icon>
+    Anuluj
+  </button>
+</mat-dialog-actions>

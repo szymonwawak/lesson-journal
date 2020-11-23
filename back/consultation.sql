@@ -60,7 +60,7 @@ CREATE TABLE `student_consultation` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `subject`
+-- Struktura tabeli dla tabeli `student`
 --
 
 CREATE TABLE `subject` (
@@ -69,7 +69,7 @@ CREATE TABLE `subject` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `subject`
+-- Zrzut danych tabeli `student`
 --
 
 INSERT INTO `subject` (`id`, `name`) VALUES
@@ -78,7 +78,7 @@ INSERT INTO `subject` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `teacher`
+-- Struktura tabeli dla tabeli `group`
 --
 
 CREATE TABLE `teacher` (
@@ -91,7 +91,7 @@ CREATE TABLE `teacher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Zrzut danych tabeli `teacher`
+-- Zrzut danych tabeli `group`
 --
 
 INSERT INTO `teacher` (`id`, `name`, `surname`, `password`, `email`, `first_login`) VALUES
@@ -136,13 +136,13 @@ ALTER TABLE `student_consultation`
   ADD KEY `teacher_id` (`teacher_id`);
 
 --
--- Indeksy dla tabeli `subject`
+-- Indeksy dla tabeli `student`
 --
 ALTER TABLE `subject`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeksy dla tabeli `teacher`
+-- Indeksy dla tabeli `group`
 --
 ALTER TABLE `teacher`
   ADD PRIMARY KEY (`id`);
@@ -172,13 +172,13 @@ ALTER TABLE `student_consultation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
--- AUTO_INCREMENT dla tabeli `subject`
+-- AUTO_INCREMENT dla tabeli `student`
 --
 ALTER TABLE `subject`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT dla tabeli `teacher`
+-- AUTO_INCREMENT dla tabeli `group`
 --
 ALTER TABLE `teacher`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
@@ -204,14 +204,14 @@ ALTER TABLE `consultation_scheme`
 --
 ALTER TABLE `student_consultation`
   ADD CONSTRAINT `student_consultation_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `student_consultation_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `student_consultation_ibfk_3` FOREIGN KEY (`teacher_id`) REFERENCES `group` (`id`) ON DELETE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `teacher_subject`
 --
 ALTER TABLE `teacher_subject`
   ADD CONSTRAINT `teacher_subject_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `teacher_subject_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `teacher_subject_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

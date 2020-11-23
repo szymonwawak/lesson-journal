@@ -25,15 +25,21 @@ import { CreateSubjectDialogComponent } from './components/create-subject-dialog
 import { SettingsComponent } from './components/settings/settings.component';
 import { PasswordChangeComponent } from './components/password-change/password-change.component';
 import { DeleteAccountComponent } from './components/delete-account/delete-account.component';
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { EditStudentsConsultationComponent } from './components/edit-students-consultation/edit-students-consultation.component';
-import {TimepickerModule} from "ngx-bootstrap/timepicker";
-import {MatDatepickerModule} from "@angular/material/datepicker";
+import {TimepickerModule} from 'ngx-bootstrap/timepicker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ChangeTeacherDataComponent } from './components/change-teacher-data/change-teacher-data.component';
-import {StudentsPanelModule} from "../students-panel/students-panel.module";
+import {StudentsPanelModule} from '../students-panel/students-panel.module';
 import { AddConsultationSchemeDialogComponent } from './components/add-consultation-scheme-dialog/add-consultation-scheme-dialog.component';
 import { EditConsultationSchemeDialogComponent } from './components/edit-consultation-scheme-dialog/edit-consultation-scheme-dialog.component';
-import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ActivitiesComponent } from './components/activities/activities.component';
+import { ActivitiesListComponent } from './components/activities-list/activities-list.component';
+import { StudentsComponent } from './components/students-component/students.component';
+import { ClassListComponent } from './components/class-list/class-list.component';
+import { CreateStudentDialogComponent } from './components/create-student-dialog/create-student-dialog.component';
+import { AssignStudentDialogComponent } from './components/assign-student-dialog/assign-student-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -42,7 +48,14 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PanelViewComponent, IncomingConsultationsComponent, SubjectsCardComponent, ConsultationsScheduleComponent, DashboardComponent, EmployeesComponent, AssignSubjectsDialogComponent, CreateSubjectDialogComponent, SettingsComponent, PasswordChangeComponent, DeleteAccountComponent, EditStudentsConsultationComponent, ChangeTeacherDataComponent, AddConsultationSchemeDialogComponent, EditConsultationSchemeDialogComponent],
+  declarations: [PanelViewComponent, IncomingConsultationsComponent, SubjectsCardComponent,
+    ConsultationsScheduleComponent, DashboardComponent, EmployeesComponent, AssignSubjectsDialogComponent,
+    CreateSubjectDialogComponent, SettingsComponent, PasswordChangeComponent, DeleteAccountComponent,
+    EditStudentsConsultationComponent, ChangeTeacherDataComponent, AddConsultationSchemeDialogComponent,
+    EditConsultationSchemeDialogComponent, ActivitiesComponent, ActivitiesListComponent, StudentsComponent,
+    ClassListComponent,
+    CreateStudentDialogComponent,
+    AssignStudentDialogComponent],
     imports: [
         CommonModule,
         MatToolbarModule,

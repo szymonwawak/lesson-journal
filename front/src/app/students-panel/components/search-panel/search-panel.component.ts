@@ -41,7 +41,7 @@ export class SearchPanelComponent implements OnInit {
       err => {
         this.utils.openSnackBar(err.error.message);
       }
-    )
+    );
   }
 
   getSubjects(): void {

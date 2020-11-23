@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Dodaj studenta:</h2>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Imię</mat-label>
+    <input matInput type="text" name="name" required [(ngModel)]="student.name" #name="ngModel">
+    <div *ngIf="(name.invalid && name.touched)">
+      <small *ngIf="name.errors?.required" class="text-danger">Imię jest wymagane</small>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwisko</mat-label>
+    <input matInput type="text" name="surname" required [(ngModel)]="student.surname" #surname="ngModel">
+    <div *ngIf="(surname.invalid && surname.touched)">
+      <small *ngIf="surname.errors?.required" class="text-danger">Nazwisko jest wymagane</small>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Wiek</mat-label>
+    <input matInput type="text" name="name" required [(ngModel)]="student.age" #age="ngModel">
+    <div *ngIf="(age.invalid && age.touched)">
+      <small *ngIf="age.errors?.required" class="text-danger">Wiek jest wymagany</small>
+    </div>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [disabled]="!student" (click)="save()">
+    <mat-icon fontSet="material-icons-outlined ">done</mat-icon>
+    Zapisz
+  </button>
+  <button mat-raised-button color="warn" (click)="close()">
+    <mat-icon fontSet="material-icons-outlined">cancel</mat-icon>
+    Anuluj
+  </button>
+</mat-dialog-actions>
