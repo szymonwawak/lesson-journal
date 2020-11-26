@@ -37,9 +37,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { ActivitiesComponent } from './components/activities/activities.component';
 import { ActivitiesListComponent } from './components/activities-list/activities-list.component';
 import { StudentsComponent } from './components/students-component/students.component';
-import { ClassListComponent } from './components/class-list/class-list.component';
 import { CreateStudentDialogComponent } from './components/create-student-dialog/create-student-dialog.component';
 import { AssignStudentDialogComponent } from './components/assign-student-dialog/assign-student-dialog.component';
+import { CreateClassesDialogComponent } from './components/create-classes-dialog/create-classes-dialog.component';
+import { PassedClassesListComponent } from './components/passed-classes-list/passed-classes-list.component';
+import { CreatePresenceListDialogComponent } from './components/create-presence-list-dialog/create-presence-list-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -53,9 +55,11 @@ const appRoutes: Routes = [
     CreateSubjectDialogComponent, SettingsComponent, PasswordChangeComponent, DeleteAccountComponent,
     EditStudentsConsultationComponent, ChangeTeacherDataComponent, AddConsultationSchemeDialogComponent,
     EditConsultationSchemeDialogComponent, ActivitiesComponent, ActivitiesListComponent, StudentsComponent,
-    ClassListComponent,
     CreateStudentDialogComponent,
-    AssignStudentDialogComponent],
+    AssignStudentDialogComponent,
+    CreateClassesDialogComponent,
+    PassedClassesListComponent,
+    CreatePresenceListDialogComponent],
     imports: [
         CommonModule,
         MatToolbarModule,

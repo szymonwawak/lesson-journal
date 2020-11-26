@@ -1,16 +1,37 @@
-<h2 mat-dialog-title>Dołącz do przedmiotu</h2>
+<h2 mat-dialog-title>Utwórz nowe zajęcia</h2>
 <mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Nazwa zajęć:</mat-label>
+    <input matInput type="text" name="name" required [(ngModel)]="vm.name"
+           #name="ngModel">
+    <div *ngIf="(name.invalid && name.touched)">
+      <small *ngIf="name.errors?.required" class="text-danger">To pole jest wymagane</small>
+    </div>
+  </mat-form-field>
   <mat-form-field>
     <mat-label>Wybierz przedmiot:</mat-label>
     <mat-select [(ngModel)]="subject">
       <mat-option *ngFor="let subject of subjects" [value]="subject">{{subject.name}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Wybierz klasę:</mat-label>
+    <mat-select [(ngModel)]="group">
+      <mat-option *ngFor="let group of groups" [value]="group">{{group.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Dzień tygodnia w który będą odbywać się zajęcia</mat-label>
+    <mat-select [(ngModel)]="vm.day" name="day" required>
+      <mat-option *ngFor="let day of days; let i = index"
+                  [value]="i + 1">{{day}}</mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button color="primary" [disabled]="!subject" (click)="save()">
     <mat-icon fontSet="material-icons-outlined ">done</mat-icon>
-    Zapisz się do przedmiotu
+    Zapisz
   </button>
   <button mat-raised-button color="warn" (click)="close()">
     <mat-icon fontSet="material-icons-outlined">cancel</mat-icon>

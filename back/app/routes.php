@@ -16,6 +16,12 @@ $app->group('/api', function () use ($app) {
         $app->put('/{id}', "TeacherController:update");
     });
 
+    $app->group('/classes', function () use ($app) {
+        $app->get('/currentUserClasses', "ClassesController:getUserClasses");
+        $app->post('', "ClassesController:create");
+
+    });
+
     $app->group('/subjects', function () use ($app) {
         $app->get('/userSubjects', 'SubjectController:getUserSubjects');
         $app->get('/{id}', "SubjectController:getSingle");

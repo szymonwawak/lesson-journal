@@ -99,6 +99,6 @@ export class StudentsConsultation {
   finish_time: string;
   accepted: boolean;
   subject: Subject;
-  teacher_id: string;
-  subject_id: string;
+  teacher_id: number;
+  subject_id: number;
 }

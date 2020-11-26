@@ -25,4 +25,7 @@ class TeacherSubject extends Model
         return $this->belongsTo("App\Models\Subject", 'subject_id');
     }
 
+    public function teacherClasses() {
+        return $this->hasMany('App\Models\TeacherClasses')->with('group');
+    }
 }

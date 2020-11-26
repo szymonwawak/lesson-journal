@@ -2,13 +2,13 @@
   <div class="col">
     <div class="row p-3">
       <div class="col">
-        <app-activities-list></app-activities-list>
+        <app-activities-list (selectedClassesEmitter)="onClassesChange($event)"></app-activities-list>
       </div>
     </div>
-  </div>
-  <div class="col">
     <div class="row p-3">
-      <app-change-teacher-data></app-change-teacher-data>
+      <div class="col">
+        <app-passed-classes-list [classes]="selectedClasses"></app-passed-classes-list>
+      </div>
     </div>
   </div>
   <div class="col">

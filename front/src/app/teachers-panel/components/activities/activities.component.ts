@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Classes} from "../../../models/Classes";
 
 @Component({
   selector: 'app-activities',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivitiesComponent implements OnInit {
 
-  constructor() { }
+  selectedClasses: Classes = new Classes();
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  onClassesChange(classes: Classes) {
+    this.selectedClasses = classes;
+  }
 }

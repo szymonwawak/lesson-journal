@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Nowa lista obecności</h2>
+<mat-dialog-content>
+  <form #f="ngForm">
+    <mat-form-field>
+      <label>Data:</label>
+      <input matInput name="dateFrom" [matDatepicker]="dateFrom" [matDatepickerFilter]="dateFilter"
+             [(ngModel)]="passedClasses.date" required>
+      <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dateFrom></mat-datepicker>
+    </mat-form-field>
+  </form>
+  <mat-selection-list #students [(ngModel)]="selectedStudentsList">
+    <mat-list-option *ngFor="let student of studentsList">
+      {{student.name}} {{student.surname}}
+    </mat-list-option>
+  </mat-selection-list>
+  <mat-dialog-actions align="end">
+    <button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="f.invalid">
+      <mat-icon fontSet="material-icons-outlined">done</mat-icon>
+      Zapisz
+    </button>
+    <button mat-raised-button color="warn" (click)="close()">
+      <mat-icon fontSet="material-icons-outlined">cancel</mat-icon>
+      Anuluj
+    </button>
+  </mat-dialog-actions>
+

@@ -16,7 +16,7 @@ export class SubjectsCardComponent implements OnInit {
 
   public userSubjects: Subject[];
   public selectedSubject: Subject;
-  paginatedUserSubjects: Subject[];
+  paginatedUserSubjects: Subject[] = [];
   pageSize: number = 3;
   length: number;
 

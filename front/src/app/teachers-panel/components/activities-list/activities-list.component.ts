@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {Subject} from "../../../students-panel/components/search-panel/search-panel.component";
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
-import {ApiService} from "../../../shared/api.service";
-import {UtilsService} from "../../../shared/utils.service";
-import {AssignSubjectsDialogComponent} from "../assign-subjects-dialog/assign-subjects-dialog.component";
-import {CreateSubjectDialogComponent} from "../create-subject-dialog/create-subject-dialog.component";
-import {PageEvent} from "@angular/material/paginator";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {ApiService} from '../../../shared/api.service';
+import {UtilsService} from '../../../shared/utils.service';
+import {PageEvent} from '@angular/material/paginator';
+import {Classes} from '../../../models/Classes';
+import {AssignSubjectsDialogComponent} from '../assign-subjects-dialog/assign-subjects-dialog.component';
 
 @Component({
   selector: 'app-activities-list',
@@ -14,34 +13,37 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class ActivitiesListComponent implements OnInit {
 
-  public userSubjects: Subject[];
-  public selectedSubject: Subject;
-  paginatedUserSubjects: Subject[];
-  pageSize: number = 3;
+  public userClasses: Classes[] = [];
+  public selectedClasses: Classes;
+  paginatedUserClasses: Classes[];
+  pageSize = 3;
   length: number;
+  @Output()
+  selectedClassesEmitter = new EventEmitter<Classes>();
 
   constructor(private dialog: MatDialog, private apiService: ApiService, private utils: UtilsService) {
   }
 
   ngOnInit(): void {
-    this.apiService.getCurrentUserSubjects().subscribe(
+    this.apiService.getCurrentUserClasses().subscribe(
       res => {
-        this.userSubjects = res;
-        this.paginatedUserSubjects = this.userSubjects.slice(0, this.pageSize)
-        this.length = this.userSubjects.length;
+        this.userClasses = res;
+        this.paginatedUserClasses = this.userClasses.slice(0, this.pageSize)
+        this.length = this.userClasses.length;
       },
       err => {
         this.utils.openSnackBar(err.error.message);
       }
-    )
+    );
   }
 
-  setSubject(subject: Subject) {
-    this.selectedSubject = subject;
+  setSubject(classes: Classes) {
+    this.selectedClasses = classes;
+    this.selectedClassesEmitter.emit(classes);
   }
 
-  deleteSubject(): void {
-    this.apiService.deleteTeacherSubject(this.selectedSubject.pivot.id).subscribe(
+  deleteClasses(): void {
+    this.apiService.deleteClasses(this.selectedClasses.id).subscribe(
       res => {
         this.ngOnInit();
       },
@@ -51,28 +53,20 @@ export class ActivitiesListComponent implements OnInit {
     );
   }
 
-  openJoinToSubjectDialog(): void {
+  openNewClassesDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '450px';
-    dialogConfig.data = this.userSubjects
-    this.dialog.open(AssignSubjectsDialogComponent, dialogConfig).afterClosed().subscribe(
-      () => this.ngOnInit()
-    )
-  }
-
-  openNewSubjectDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '450px';
-    this.dialog.open(CreateSubjectDialogComponent, dialogConfig);
+    this.dialog.open(AssignSubjectsDialogComponent, dialogConfig).afterClosed().subscribe(() => {
+        this.ngOnInit();
+      }
+    );
   }
 
   changePage(event: PageEvent): void {
-    let offset = event.pageSize * event.pageIndex;
-    this.paginatedUserSubjects = this.userSubjects.slice(offset, offset + this.pageSize);
+    const offset = event.pageSize * event.pageIndex;
+    this.paginatedUserClasses = this.userClasses.slice(offset, offset + this.pageSize);
   }
 
 }

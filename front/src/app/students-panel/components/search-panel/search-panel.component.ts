@@ -81,7 +81,7 @@ export class SearchPanelComponent implements OnInit {
 }
 
 export class Teacher {
-  id: string;
+  id: number;
   name: string;
   surname: string;
   email: string;
@@ -89,13 +89,13 @@ export class Teacher {
 }
 
 export class Subject {
-  id: string;
+  id: number;
   name: string;
   pivot: TeacherSubject;
 }
 
 export class TeacherSubject {
   id: string;
-  teacher_id: string;
-  subject_id: string;
+  teacher_id: number;
+  subject_id: number;
 }

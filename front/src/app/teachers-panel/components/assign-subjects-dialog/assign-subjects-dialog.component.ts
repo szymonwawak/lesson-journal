@@ -3,6 +3,7 @@ import {Subject} from "../../../students-panel/components/search-panel/search-pa
 import {ApiService} from "../../../shared/api.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {UtilsService} from "../../../shared/utils.service";
+import {Group} from "../../../models/Group";
 
 @Component({
   selector: 'app-assign-subjects-dialog',
@@ -11,8 +12,12 @@ import {UtilsService} from "../../../shared/utils.service";
 })
 export class AssignSubjectsDialogComponent implements OnInit {
 
+  vm: ClassesVM = new ClassesVM();
   subjects: Subject[];
   subject: Subject;
+  groups: Group[];
+  group: Group;
+  days = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 
   constructor(private apiService: ApiService,
               public dialogRef: MatDialogRef<AssignSubjectsDialogComponent>,
@@ -21,10 +26,17 @@ export class AssignSubjectsDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.apiService.getAllSubjects().subscribe(
+    this.apiService.getCurrentUserSubjects().subscribe(
       res => {
         this.subjects = res;
-        this.subjects = this.subjects.filter((el) => !this.userSubjects.find(({id}) => el.id == id));
+        },
+      err => {
+        this.utils.openSnackBar(err.error.message);
+      }
+    );
+    this.apiService.getAllGroups().subscribe(
+      res => {
+        this.groups = res;
       },
       err => {
         this.utils.openSnackBar(err.error.message);
@@ -37,13 +49,22 @@ export class AssignSubjectsDialogComponent implements OnInit {
   }
 
   save() {
-    this.apiService.addSubjectToCurrentlyLoggedTeacher({'subject_id': this.subject.id}).subscribe(
+    this.vm.groupId = this.group.id;
+    this.vm.subjectId = this.subject.id;
+    this.apiService.saveUserClasses(this.vm).subscribe(
       res => {
         this.dialogRef.close();
       },
       err => {
         this.utils.openSnackBar(err.error.message);
-      }
-    )
+      });
   }
+}
+
+export class ClassesVM {
+  id: number;
+  name: string;
+  day: number;
+  groupId: number;
+  subjectId: number;
 }

@@ -25,7 +25,7 @@
       </mat-form-field>
     </div>
     <div [hidden]="!search">
-      <div *ngFor="let student of teachers | teacherSearch: search" class="teacher-container mat-option">
+      <div *ngFor="let teacher of teachers | teacherSearch: search" class="teacher-container mat-option">
         <a (click)="setTeacher(teacher)" class="mat-option-text">
           {{teacher.name}}
           {{teacher.surname}}

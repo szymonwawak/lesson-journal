@@ -10,6 +10,8 @@ import {
 import {ConsultationScheme} from "../teachers-panel/components/consultations-schedule/consultations-schedule.component";
 import {Group} from "../models/Group";
 import {Student} from "../models/Student";
+import {ClassesVM} from "../teachers-panel/components/assign-subjects-dialog/assign-subjects-dialog.component";
+import {Classes} from "../models/Classes";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,8 @@ export class ApiService {
   private TEACHER_SUBJECTS_URL = this.BASE_URL + '/teacherSubjects';
   private GROUPS_URL = this.BASE_URL + '/groups';
   private STUDENTS_URL = this.BASE_URL + '/students';
+  private TEACHER_CLASSES_URL = this.BASE_URL + '/teacherClasses';
+  private CLASSES_URL = this.BASE_URL + '/classes';
 
   constructor(private http: HttpClient) {
   }
@@ -134,5 +138,21 @@ export class ApiService {
 
   addSubjectToCurrentlyLoggedTeacher(data): Observable<any> {
     return this.http.post<any>(this.TEACHER_SUBJECTS_URL + '/addToCurrent', data);
+  }
+
+  getCurrentUserClasses(): Observable<Classes[]> {
+    return this.http.get<Classes[]>(this.CLASSES_URL + '/currentUserClasses');
+  }
+
+  saveUserClasses(data): Observable<any> {
+    return this.http.post<any>(this.CLASSES_URL, data);
+  }
+
+  deleteClasses(id: number): Observable<any> {
+    return this.http.delete<any>(this.CLASSES_URL + '/' + id);
+  }
+
+  savePresenceList(data: any) {
+    return this.http.delete<any>(this.CLASSES_URL + '/' + data);
   }
 }

@@ -45,6 +45,11 @@ $container ['TeacherController'] = function ($container) {
     return new App\Controllers\Api\TeacherController($container);
 };
 
+$container ['ClassesController'] = function ($container) {
+
+    return new App\Controllers\Api\ClassesController($container);
+};
+
 $container ['GroupController'] = function ($container) {
 
     return new App\Controllers\Api\GroupController($container);
