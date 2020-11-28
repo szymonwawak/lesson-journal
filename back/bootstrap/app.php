@@ -69,10 +69,21 @@ $container ['SubjectController'] = function ($container) {
 
     return new App\Controllers\Api\SubjectController($container);
 };
+$container ['PresenceListController'] = function ($container) {
+
+    return new App\Controllers\Api\PresenceListController($container);
+};
+
+$container ['ScoreController'] = function ($container) {
+
+    return new App\Controllers\Api\ScoreController($container);
+};
+
 $container ['TeacherSubjectController'] = function ($container) {
 
     return new App\Controllers\Api\TeacherSubjectController($container);
 };
+
 $container ['ConsultationController'] = function ($container) {
 
     return new App\Controllers\Api\ConsultationController($container);

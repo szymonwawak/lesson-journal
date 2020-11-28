@@ -10,8 +10,10 @@ import {
 import {ConsultationScheme} from "../teachers-panel/components/consultations-schedule/consultations-schedule.component";
 import {Group} from "../models/Group";
 import {Student} from "../models/Student";
-import {ClassesVM} from "../teachers-panel/components/assign-subjects-dialog/assign-subjects-dialog.component";
 import {Classes} from "../models/Classes";
+import {PresenceList} from "../models/PresenceList";
+import * as Flatted from 'flatted';
+import {StudentScores} from "../models/StudentScores";
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,8 @@ export class ApiService {
   private STUDENTS_URL = this.BASE_URL + '/students';
   private TEACHER_CLASSES_URL = this.BASE_URL + '/teacherClasses';
   private CLASSES_URL = this.BASE_URL + '/classes';
+  private PRESENCE_LIST_URL = this.BASE_URL + '/presenceList';
+  private SCORES_URL = this.BASE_URL + '/scores';
 
   constructor(private http: HttpClient) {
   }
@@ -84,7 +88,7 @@ export class ApiService {
     return this.http.delete(this.TEACHER_SUBJECTS_URL + '/' + id);
   }
 
-  getConsultationSchemesByTeacherId(teacherId: string): Observable<ConsultationScheme[]> {
+  getConsultationSchemesByTeacherId(teacherId: number): Observable<ConsultationScheme[]> {
     return this.http.post<ConsultationScheme[]>(this.CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacherId});
   }
 
@@ -100,7 +104,7 @@ export class ApiService {
     return this.http.delete(this.CONSULTATIONS_URL + '/' + id);
   }
 
-  getStudentsConsultationsByTeacherId(teacherId: string): Observable<StudentsConsultation[]> {
+  getStudentsConsultationsByTeacherId(teacherId: number): Observable<StudentsConsultation[]> {
     return this.http.post<StudentsConsultation[]>(this.STUDENTS_CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacherId});
   }
 
@@ -152,7 +156,23 @@ export class ApiService {
     return this.http.delete<any>(this.CLASSES_URL + '/' + id);
   }
 
-  savePresenceList(data: any) {
-    return this.http.delete<any>(this.CLASSES_URL + '/' + data);
+  savePresenceList(data: PresenceList) {
+    return this.http.post<any>(this.PRESENCE_LIST_URL, data);
+  }
+
+  updatePresenceList(data: PresenceList) {
+    return this.http.put<any>(this.PRESENCE_LIST_URL + '/' + data.id, data);
+  }
+
+  deletePassedClasses(id: number) {
+    return this.http.delete<any>(this.PRESENCE_LIST_URL + '/' + id);
+  }
+
+  getScoresByClassesId(classesId: number): Observable<StudentScores[]> {
+    return this.http.get<StudentScores[]>(this.SCORES_URL + '/' + classesId);
+  }
+
+  saveScores(data: any): Observable<any> {
+    return this.http.post<any>(this.SCORES_URL, data);
   }
 }

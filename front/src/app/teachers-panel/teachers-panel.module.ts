@@ -42,6 +42,10 @@ import { AssignStudentDialogComponent } from './components/assign-student-dialog
 import { CreateClassesDialogComponent } from './components/create-classes-dialog/create-classes-dialog.component';
 import { PassedClassesListComponent } from './components/passed-classes-list/passed-classes-list.component';
 import { CreatePresenceListDialogComponent } from './components/create-presence-list-dialog/create-presence-list-dialog.component';
+import { EditPresenceListDialogComponent } from './components/edit-presence-list-dialog/edit-presence-list-dialog.component';
+import { ScoresDialogComponent } from './components/scores-dialog/scores-dialog.component';
+import {MatTableModule} from "@angular/material/table";
+import { CreateNewScoreDialogComponent } from './components/create-new-score-dialog/create-new-score-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -59,30 +63,34 @@ const appRoutes: Routes = [
     AssignStudentDialogComponent,
     CreateClassesDialogComponent,
     PassedClassesListComponent,
-    CreatePresenceListDialogComponent],
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatButtonModule,
-        RouterModule.forRoot(appRoutes),
-        MatSidenavModule,
-        MatListModule,
-        MatIconModule,
-        FontAwesomeModule,
-        MatCardModule,
-        MatInputModule,
-        MatOptionModule,
-        FormsModule,
-        MatDialogModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        TimepickerModule.forRoot(),
-        MatDatepickerModule,
-        MatNativeDateModule,
-        ReactiveFormsModule,
-        StudentsPanelModule,
-        MatPaginatorModule
-    ]
+    CreatePresenceListDialogComponent,
+    EditPresenceListDialogComponent,
+    ScoresDialogComponent,
+    CreateNewScoreDialogComponent],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    RouterModule.forRoot(appRoutes),
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    FontAwesomeModule,
+    MatCardModule,
+    MatInputModule,
+    MatOptionModule,
+    FormsModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    TimepickerModule.forRoot(),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    StudentsPanelModule,
+    MatPaginatorModule,
+    MatTableModule
+  ]
 })
 
 export class TeachersPanelModule {

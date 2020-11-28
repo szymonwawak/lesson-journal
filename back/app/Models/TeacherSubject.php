@@ -26,6 +26,6 @@ class TeacherSubject extends Model
     }
 
     public function teacherClasses() {
-        return $this->hasMany('App\Models\TeacherClasses')->with('group');
+        return $this->hasMany('App\Models\Classes')->with('group.students')->with('presenceLists');
     }
 }

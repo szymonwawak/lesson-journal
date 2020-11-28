@@ -25,8 +25,18 @@ class Classes extends Model
         return $this->belongsTo("App\Models\TeacherSubject");
     }
 
+    public function presenceLists()
+    {
+        return $this->hasMany("App\Models\PresenceList", 'teacher_classes_id')->with('students');
+    }
+
     public function group()
     {
-        return $this->belongsTo("App\Models\Group");
+        return $this->belongsTo("App\Models\Group")->with('students');
+    }
+
+    public function scores()
+    {
+        return $this->hasMany("App\Models\Score", 'teacher_classes_id')->with('students');
     }
 }

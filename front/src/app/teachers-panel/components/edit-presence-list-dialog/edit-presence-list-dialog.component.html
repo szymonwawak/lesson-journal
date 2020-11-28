@@ -4,14 +4,14 @@
     <mat-form-field>
       <label>Data:</label>
       <input matInput name="dateFrom" [matDatepicker]="dateFrom" [matDatepickerFilter]="dateFilter.bind(this)"
-             [(ngModel)]="presenceList.date" required>
+             [(ngModel)]="date" required>
       <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
       <mat-datepicker #dateFrom></mat-datepicker>
     </mat-form-field>
   </form>
   <h4>Lista uczniów:</h4>
   <mat-selection-list #list [(ngModel)]="students">
-    <mat-list-option *ngFor="let student of studentsList" [value]="student">
+    <mat-list-option *ngFor="let student of studentsList" [value]="student" [selected]="wasPresent(student)">
       {{student.name}} {{student.surname}}
     </mat-list-option>
   </mat-selection-list>

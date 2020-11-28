@@ -19,6 +19,7 @@ $app->group('/api', function () use ($app) {
     $app->group('/classes', function () use ($app) {
         $app->get('/currentUserClasses', "ClassesController:getUserClasses");
         $app->post('', "ClassesController:create");
+        $app->delete('/{id}', "ClassesController:delete");
 
     });
 
@@ -63,6 +64,13 @@ $app->group('/api', function () use ($app) {
 
     });
 
+    $app->group('/presenceList', function () use ($app) {
+        $app->post('', "PresenceListController:create");
+        $app->delete('/{id}', "PresenceListController:delete");
+        $app->put('/{id}', "PresenceListController:update");
+
+    });
+
     $app->group('/consultations', function () use ($app) {
         $app->get('/{id}', "ConsultationController:getSingle");
         $app->get('', 'ConsultationController:getConsultations');
@@ -76,6 +84,11 @@ $app->group('/api', function () use ($app) {
         $app->get('/{id}', "StudentConsultationController:getSingle");
         $app->delete('/{id}', "StudentConsultationController:delete");
         $app->put('/{id}', "StudentConsultationController:update");
+    });
+
+    $app->group('/scores', function () use ($app) {
+        $app->get('/{id}', 'ScoreController:getClassesScores');
+        $app->post('', 'ScoreController:saveScores');
     });
 
 })->add(new Tuupola\Middleware\JwtAuthentication([

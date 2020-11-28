@@ -5,6 +5,7 @@ import {UtilsService} from '../../../shared/utils.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Classes} from '../../../models/Classes';
 import {AssignSubjectsDialogComponent} from '../assign-subjects-dialog/assign-subjects-dialog.component';
+import {ScoresDialogComponent} from "../scores-dialog/scores-dialog.component";
 
 @Component({
   selector: 'app-activities-list',
@@ -49,6 +50,18 @@ export class ActivitiesListComponent implements OnInit {
       },
       err => {
         this.utils.openSnackBar(err.error.message);
+      }
+    );
+  }
+
+  openScoresDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '1000px';
+    dialogConfig.data = [this.selectedClasses.id];
+    this.dialog.open(ScoresDialogComponent, dialogConfig).afterClosed().subscribe(() => {
+        this.ngOnInit();
       }
     );
   }

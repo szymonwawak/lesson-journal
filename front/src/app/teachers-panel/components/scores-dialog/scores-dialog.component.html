@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Oceny</h2>
+<mat-dialog-content>
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Student</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{element.student.name}} {{element.student.surname}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let score of scoreColumns" [matColumnDef]="score">
+      <mat-header-cell *matHeaderCellDef>{{getScore(score).name}} {{getScoreType(getScore(score).type)}}
+        Waga: {{getScore(score).weight}}</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never">
+          <input type="number" min="1" max="6" name="score" matInput [value]="element[score].value"
+                 [(ngModel)]="element[score].value">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="average">
+      <mat-header-cell *matHeaderCellDef>Średnia</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{element.average}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="false" (click)="save()">
+      <mat-icon fontSet="material-icons-outlined ">done</mat-icon>
+      Zapisz
+    </button>
+    <button mat-raised-button color="accent" (click)="addScoreColumn()" [disabled]="false">
+      <mat-icon fontSet="material-icons-outlined ">done</mat-icon>
+      Dodaj nową ocenę
+    </button>
+    <button mat-raised-button color="warn" (click)="close()">
+      <mat-icon fontSet="material-icons-outlined">cancel</mat-icon>
+      Anuluj
+    </button>
+  </mat-dialog-actions>
+</mat-dialog-content>

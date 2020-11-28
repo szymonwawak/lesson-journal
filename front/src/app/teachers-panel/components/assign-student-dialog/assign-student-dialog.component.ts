@@ -25,7 +25,7 @@ export class AssignStudentDialogComponent implements OnInit {
     this.apiService.getAllStudents().subscribe(
       res => {
         this.students = res;
-        this.students = this.students.filter((el) => !el.group);
+        this.students = this.students.filter((el) => !el.group_id);
       },
       err => {
         this.utils.openSnackBar(err.error.message);
@@ -48,9 +48,10 @@ export class AssignStudentDialogComponent implements OnInit {
   }
 
   save() {
+    this.student.group = this.group;
     this.apiService.updateStudent(this.student).subscribe(
       res => {
-        this.group.students.push(this.student)
+        this.group.students.push(this.student);
         this.dialogRef.close();
         this.ngOnInit();
       },

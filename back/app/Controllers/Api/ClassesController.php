@@ -34,10 +34,21 @@ class ClassesController extends Controller
         $teacherSubjects = TeacherSubject::where('teacher_id', $userId)->get();
         foreach ($teacherSubjects as $teacherSubject) {
             $foundClasses = $teacherSubject->teacherClasses;
-            foreach($foundClasses as $class) {
+            foreach ($foundClasses as $class) {
                 array_push($classes, $class);
             }
         }
         return $response->withStatus(200)->withJson($classes);
+    }
+
+    public function delete(Request $request, Response $response, $args)
+    {
+        $id = $args['id'];
+        $classes = Classes::find($id);
+        if ($classes) {
+            $classes->delete();
+            return $response->withStatus(200);
+        }
+        return $response->withStatus(404)->withJson(['error' => true, 'message' => 'Brak rekordu o podanym id']);
     }
 }

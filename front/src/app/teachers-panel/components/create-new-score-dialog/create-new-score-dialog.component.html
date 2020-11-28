@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Dodaj ocenę</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Wybierz rodzaj oceny:</mat-label>
+    <mat-select [(ngModel)]="score.type">
+      <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwa</mat-label>
+    <input matInput type="text" name="name" required [(ngModel)]="score.name"
+           #name="ngModel">
+    <div *ngIf="(surname.invalid && surname.touched)">
+      <small *ngIf="surname.errors?.required" class="text-danger">To pole jest wymaganey</small>
+    </div>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Waga</mat-label>
+    <input matInput type="number" name="weight" min="1" max="10" required [(ngModel)]="score.weight"
+           #surname="ngModel">
+    <div *ngIf="(name.invalid && name.touched)">
+      <small *ngIf="name.errors?.required" class="text-danger">To pole jest wymagane</small>
+    </div>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="score" [disabled]="!score.weight">
+    <mat-icon fontSet="material-icons-outlined ">done</mat-icon>
+    Dodaj ocenę
+  </button>
+  <button mat-raised-button color="warn" (click)="close()">
+    <mat-icon fontSet="material-icons-outlined">cancel</mat-icon>
+    Anuluj
+  </button>
+</mat-dialog-actions>

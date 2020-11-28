@@ -20,6 +20,10 @@
         <mat-icon fontSet="material-icons-outlined ">library_add</mat-icon>
         Utwórz zajęcia
       </button>
+      <button mat-raised-button color="accent" class="m-3" [disabled]="!selectedClasses" (click)="openScoresDialog()">
+        <mat-icon fontSet="material-icons-outlined ">score</mat-icon>
+        Sprawdź / wystaw ocenę
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

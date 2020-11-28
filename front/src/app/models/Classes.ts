@@ -8,5 +8,5 @@ export class Classes {
   day: number;
   group: Group;
   subject: Subject;
-  passedClasses: PassedClasses[];
+  presence_lists: PassedClasses[];
 }

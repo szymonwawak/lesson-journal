@@ -19,7 +19,7 @@ class StudentController extends Controller
 {
     public function getAll(Request $request, Response $response)
     {
-        $students = Student::with('group')->get();
+        $students = Student::get();
         return $response->withStatus(201)->withJson($students);
     }
 
