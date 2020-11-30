@@ -16,13 +16,15 @@ export class EditPresenceListDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data,
               public dialogRef: MatDialogRef<EditPresenceListDialogComponent>,
               private utils: UtilsService,
-              private apiService: ApiService) { }
+              private apiService: ApiService) {
+  }
 
   presenceList: PresenceList = this.data[0];
   classes: Classes = this.data[1];
   studentsList = this.presenceList.students;
   students = this.presenceList.students;
   date: Date;
+
   ngOnInit(): void {
     this.studentsList = this.classes.group.students;
     this.date = this.presenceList.date;
@@ -37,6 +39,9 @@ export class EditPresenceListDialogComponent implements OnInit {
   }
 
   save(): void {
+    if (typeof this.date !== 'string') {
+      this.date.setHours(this.date.getHours() + 1);
+    }
     this.presenceList.students = this.students;
     this.presenceList.classes = this.classes;
     this.classes.presence_lists = null;

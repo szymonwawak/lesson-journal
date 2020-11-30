@@ -76,13 +76,25 @@ export class ScoresDialogComponent implements OnInit {
       for (const score of this.scoreColumns) {
         studentObject[score] = studentScore.studentScores.find((el) => {
           return el.scoreId === (Number(score));
-        });
+        }) || this.prepareNewScore(score);
       }
       this.valuesArray.push(studentObject);
     }
     for (const scoreCol of this.scoreColumns) {
       this.displayedColumns.push(scoreCol);
     }
+  }
+
+  prepareNewScore(scoreId) {
+    const scoreConfig = this.scores.find((el) => el.id == scoreId);
+    const score = new Score();
+    if (scoreConfig) {
+      score.weight = scoreConfig.weight;
+      score.type = scoreConfig.type;
+      score.name = scoreConfig.name;
+      score.scoreId = scoreConfig.id;
+    }
+    return score;
   }
 
   close() {
@@ -104,7 +116,7 @@ export class ScoresDialogComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
     this.dialog.open(CreateNewScoreDialogComponent, dialogConfig).afterClosed().subscribe((response) => {
-        if (response.weight) {
+        if (response && response.weight) {
           this.addNewScore(response);
         }
       }

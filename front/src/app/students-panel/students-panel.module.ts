@@ -19,6 +19,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {TimepickerModule} from "ngx-bootstrap/timepicker";
 import {MatIconModule} from "@angular/material/icon";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule} from "@angular/material-moment-adapter";
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     MatDialogModule,
     MatDatepickerModule,
     TimepickerModule,
-    MatIconModule
+    MatIconModule,
+    MatMomentDateModule
   ]
 })
 export class StudentsPanelModule {

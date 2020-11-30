@@ -53,18 +53,37 @@ class ScoreController
 
     private function calculateAverage($student, $classes)
     {
-        $isSkippedScore = false;
+        $canSkipScore = false;
         $sum = 0;
         $weightSum = 0;
         $scoreValues = $student->scoreValues;
+        if (sizeof($classes->presenceLists) == sizeof($student->presenceLists()->where('teacher_classes_id', $classes->id)->get())) {
+            $canSkipScore = true;
+        }
+        $lowestScoreValue = 1000;
+        $lowestScoreWeight = 0;
+        $lowestQuizScore = 6;
+        $lowestOtherScore = 6;
         foreach ($scoreValues as $scoreValue) {
-            if (sizeof($classes->presenceLists) == sizeof($student->presenceLists()->where('teacher_classes_id', $classes->id)) && !$isSkippedScore) {
-                $isSkippedScore = true;
-                continue;
-            }
-            $weight = $scoreValue->score->weight;
+            $score = $scoreValue->score;
+            $weight = $score->weight;
             $weightSum += $weight;
+            $calculatedScore = $weight * $scoreValue->value;
+            if ($score->type == 'quiz') {
+                if ($calculatedScore <= $lowestScoreValue) {
+                    $lowestScoreValue = $calculatedScore;
+                    $lowestQuizScore = $scoreValue->value;
+                    $lowestScoreWeight = $weight;
+                }
+
+            } else {
+                $lowestOtherScore = $scoreValue->value;
+            }
             $sum += ($weight * $scoreValue->value);
+        }
+        if ($canSkipScore && $lowestQuizScore < $lowestOtherScore) {
+            $sum -= $lowestScoreValue;
+            $weightSum -= $lowestScoreWeight;
         }
         return ($weightSum != 0) ? $sum / $weightSum : 0;
     }
@@ -88,7 +107,7 @@ class ScoreController
             }
             $scoreId = $score['id'];
             if (!$scoreId) {
-                $scoreId = $this->checkIfScoreExists($scoreId, $studentId);
+                $scoreId = $this->checkIfScoreExists($score['scoreId'], $studentId);
                 if (!$scoreId) {
                     $scoreId = $this->searchId($scoreKey);
                 }
@@ -146,16 +165,7 @@ class ScoreController
 
     private function checkIfScoreExists($scoreId, $studentId)
     {
-        $studentScore = StudentScore::where('score_id', $scoreId)->where('student_id', $studentId)->first();
-        return $studentScore ? $studentScore->id : 0;
-    }
-
-    function debug_to_console($data)
-    {
-        $output = $data;
-        if (is_array($output))
-            $output = implode(',', $output);
-
-        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+        $score = Score::find($scoreId);
+        return $score ? $score->id : 0;
     }
 }

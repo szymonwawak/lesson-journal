@@ -16,7 +16,13 @@ import {ConsultationsScheduleComponent} from './components/consultations-schedul
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {EmployeesComponent} from './components/employees/employees.component';
 import {MatInputModule} from "@angular/material/input";
-import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+  MatOptionModule
+} from "@angular/material/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDialogModule} from "@angular/material/dialog";
 import {AssignSubjectsDialogComponent} from './components/assign-subjects-dialog/assign-subjects-dialog.component';
@@ -67,6 +73,8 @@ const appRoutes: Routes = [
     EditPresenceListDialogComponent,
     ScoresDialogComponent,
     CreateNewScoreDialogComponent],
+  providers: [
+  ],
   imports: [
     CommonModule,
     MatToolbarModule,
