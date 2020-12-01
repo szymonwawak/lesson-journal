@@ -8,7 +8,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Models\Subject;
 
-
 class SubjectController extends Controller
 {
 

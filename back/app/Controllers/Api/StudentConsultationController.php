@@ -2,14 +2,12 @@
 
 namespace App\Controllers\Api;
 
-
 use App\Controllers\Controller;
 use App\Models\Consultation;
 use DateTime;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use App\Models\StudentConsultation;
-
 
 class StudentConsultationController extends Controller
 {

@@ -2,16 +2,10 @@
 
 namespace App\Controllers\Api;
 
-
 use App\Controllers\Controller;
-use App\Models\Consultation;
 use App\Models\Group;
-use App\Models\StudentConsultation;
-use App\Models\Subject;
-use DateTime;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use App\Models\Teacher;
 
 
 class GroupController extends Controller

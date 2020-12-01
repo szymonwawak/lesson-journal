@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Controllers\Api;
-
 
 use App\Controllers\Controller;
 use App\Models\Classes;
-use App\Models\Teacher;
 use App\Models\TeacherSubject;
 use Slim\Http\Request;
 use Slim\Http\Response;

@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Subject, Teacher} from "../students-panel/components/search-panel/search-panel.component";
-import {PasswordChangeModel} from "../teachers-panel/components/password-change/password-change.component";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Subject, Teacher} from '../students-panel/components/search-panel/search-panel.component';
+import {PasswordChangeModel} from '../teachers-panel/components/password-change/password-change.component';
 import {
   DateRange,
   StudentsConsultation
-} from "../teachers-panel/components/incoming-consultations/incoming-consultations.component";
-import {ConsultationScheme} from "../teachers-panel/components/consultations-schedule/consultations-schedule.component";
-import {Group} from "../models/Group";
-import {Student} from "../models/Student";
-import {Classes} from "../models/Classes";
-import {PresenceList} from "../models/PresenceList";
-import * as Flatted from 'flatted';
-import {StudentScores} from "../models/StudentScores";
+} from '../teachers-panel/components/incoming-consultations/incoming-consultations.component';
+import {ConsultationScheme} from '../teachers-panel/components/consultations-schedule/consultations-schedule.component';
+import {Group} from '../models/Group';
+import {Student} from '../models/Student';
+import {Classes} from '../models/Classes';
+import {PresenceList} from '../models/PresenceList';
+import {StudentScores} from '../models/StudentScores';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +27,6 @@ export class ApiService {
   private TEACHER_SUBJECTS_URL = this.BASE_URL + '/teacherSubjects';
   private GROUPS_URL = this.BASE_URL + '/groups';
   private STUDENTS_URL = this.BASE_URL + '/students';
-  private TEACHER_CLASSES_URL = this.BASE_URL + '/teacherClasses';
   private CLASSES_URL = this.BASE_URL + '/classes';
   private PRESENCE_LIST_URL = this.BASE_URL + '/presenceList';
   private SCORES_URL = this.BASE_URL + '/scores';
@@ -89,7 +87,7 @@ export class ApiService {
   }
 
   getConsultationSchemesByTeacherId(teacherId: number): Observable<ConsultationScheme[]> {
-    return this.http.post<ConsultationScheme[]>(this.CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacherId});
+    return this.http.post<ConsultationScheme[]>(this.CONSULTATIONS_URL + '/' + 'consultationsById', {teacher_id: teacherId});
   }
 
   createConsultationScheme(scheme: ConsultationScheme): Observable<any> {
@@ -105,7 +103,7 @@ export class ApiService {
   }
 
   getStudentsConsultationsByTeacherId(teacherId: number): Observable<StudentsConsultation[]> {
-    return this.http.post<StudentsConsultation[]>(this.STUDENTS_CONSULTATIONS_URL + '/' + 'consultationsById', {'teacher_id': teacherId});
+    return this.http.post<StudentsConsultation[]>(this.STUDENTS_CONSULTATIONS_URL + '/' + 'consultationsById', {teacher_id: teacherId});
   }
 
   createStudentConsultation(studentsConsultation: StudentsConsultation): Observable<any> {

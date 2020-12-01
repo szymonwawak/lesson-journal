@@ -1,6 +1,6 @@
 import {Group} from './Group';
 import {Student} from './Student';
-import {Classes} from "./Classes";
+import {Classes} from './Classes';
 
 export class PresenceList {
   id: number;

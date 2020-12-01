@@ -31,14 +31,6 @@ $app->group('/api', function () use ($app) {
         $app->put('/{id}', "SubjectController:update");
     });
 
-    $app->group('/activities', function () use ($app) {
-        $app->get('/userActivities', 'ActivityController:getUserSubjects');
-        $app->get('/{id}', "ActivityController:getSingle");
-        $app->post('', "ActivityController:create");
-        $app->delete('/{id}', "ActivityController:delete");
-        $app->put('/{id}', "ActivityController:update");
-    });
-
     $app->group('/groups', function () use ($app) {
         $app->get('', "GroupController:getAll");
         $app->get('/{id}', "GroupController:getSingle");

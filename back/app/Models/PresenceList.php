@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Models;
-
-
 
 use Illuminate\Database\Eloquent\Model;
 
 class PresenceList extends Model
 {
-    protected $table = 'classes';
+    protected $table = 'presence_list';
     public $timestamps = false;
     protected $fillable = [
         'date'

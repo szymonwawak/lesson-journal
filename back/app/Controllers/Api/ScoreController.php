@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controllers\Api;
-
 
 use App\Models\Classes;
 use App\Models\Score;
@@ -17,39 +15,49 @@ class ScoreController
 
     public function getClassesScores(Request $request, Response $response, $args)
     {
-        $data = $request->getParsedBody();
         $classesId = $args['id'];
         $classes = Classes::find($classesId);
         $group = $classes->group;
         $students = $group->students;
         $scores = $classes->scores;
+        $studentsArray = $this->prepareScores($students, $scores, $classes);
+        return $response->withStatus(201)->withJson($studentsArray);
+    }
+
+    private function prepareScores($students, $scores, $classes): array
+    {
         $studentsArray = [];
         foreach ($students as $student) {
             $scoresArray = array();
             $studentData = [];
-            $i = 0;
-            foreach ($scores as $score) {
-                $studentScore = $student->scores()->where('id', $score->id);
-                if ($studentScore) {
-                    $scoreValue = StudentScore::where('student_id', $student->id)->where('score_id', $score->id)->first();
-                    if ($scoreValue) {
-                        $scoresArray[$i]['value'] = $scoreValue->value ?: "";
-                        $scoresArray[$i]['id'] = $scoreValue->id;
-                        $scoresArray[$i]['scoreId'] = $score->id;
-                        $scoresArray[$i]['type'] = $score->type;
-                    }
-                }
-                $i++;
-            }
+            $scoresArray = $this->assignScores($scores, $student, $scoresArray);
             $studentData['studentScores'] = $scoresArray;
             $studentData['scoresConfig'] = $scores;
             $studentData['student'] = $student;
             $studentData['average'] = $this->calculateAverage($student, $classes);
             array_push($studentsArray, $studentData);
         }
-        return $response->withStatus(201)->withJson($studentsArray);
+        return $studentsArray;
     }
 
+    private function assignScores($scores, $student, array $scoresArray): array
+    {
+        $i = 0;
+        foreach ($scores as $score) {
+            $studentScore = $student->scores()->where('id', $score->id);
+            if ($studentScore) {
+                $scoreValue = StudentScore::where('student_id', $student->id)->where('score_id', $score->id)->first();
+                if ($scoreValue) {
+                    $scoresArray[$i]['value'] = $scoreValue->value ?: "";
+                    $scoresArray[$i]['id'] = $scoreValue->id;
+                    $scoresArray[$i]['scoreId'] = $score->id;
+                    $scoresArray[$i]['type'] = $score->type;
+                }
+            }
+            $i++;
+        }
+        return $scoresArray;
+    }
 
     private function calculateAverage($student, $classes)
     {
